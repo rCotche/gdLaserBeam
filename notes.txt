@@ -1,0 +1,62 @@
+https://www.youtube.com/watch?v=N8bRwCvhH6g
+
+Blender 5
+
+press A > X
+
+shift + A > mesh > cylinder > en bas à gauche, ref image creation_window.png > cap fill type > select Nothing
+
+switch to edit mode, tab
+
+press R > X > type 90
+
+press G > Y > move it one unit to the left, ref image move_1unit.png
+
+switch to object mode, tab > shift + D > enter to confirm
+
+2e cylinder: alt + click, pour sélectionner tous les vertices d'un edge (gauche) >  press S, vers l'exterieur (un peu) > press G > Y 
+
+2e cylinder: alt + click, pour sélectionner tous les vertices d'un edge (droite) > press G > Y, un peu > press S, vers l'intérieur
+
+2e cylinder: ctrl + R, tout en survolant la partie où je souhaite ajouter des loops > je scroll up pour augmenter le nombre de loops, 3 > enter to confirm
+
+2e cylinder: alt + click, pour sélectionner tous les vertices d'un edge (le plus à droite droite) > press S, vers l'intérieur
+
+2e cylinder: alt + click, pour sélectionner tous les vertices d'un edge (le 2e en partant de la droite) > press S, vers l'intérieur
+
+select le 1er cylinder, ctrl + R, tout en survolant la partie où je souhaite ajouter des loops > je scroll up pour augmenter le nombre de loops, 4 > enter to confirm
+
+1er cylinder: alt + click, pour sélectionner tous les vertices d'un edge (le plus à droite droite) > press S, vers l'intérieur
+
+switch to object mode > select object (1er cylinder) > click droit > shade smooth
+
+switch to object mode > select object (2e cylinder) > click droit > shade smooth
+
+select cylinder 1 > en haut a gauche, file menu > export > gltf > include menu à droite > limited to > checked selected object
+
+select cylinder 2 > en haut a gauche, file menu > export > gltf > include menu à droite > limited to > checked selected object
+
+////////////////////////
+
+Godot 4.5.1
+
+add node 3D > add GPUparticule3D node > inspector > process material > new particle process material
+
+cylinder1: drag n drop model, dans le dossier models > click droit > new scene inherited > select mesh > inspector > mesh > fleche à droite de la mesh, liste déroulante > rendre unique > save as, select folder
+
+cylinder2: drag n drop model, dans le dossier models > click droit > new scene inherited > select mesh > inspector > mesh > fleche à droite de la mesh, liste déroulante > rendre unique > save as, select folder
+
+select GPUparticule3D node > inspector > draw passes > pass > changer > select mesh, cylinder 1
+
+select GPUparticule3D node > inspector > amount == 1
+
+select GPUparticule3D node > inspector > time > lifetime == 2
+
+select GPUparticule3D node > inspector > process material > click on > acceleration > gravity > y == 0
+
+select GPUparticule3D node > inspector > process material > click on > display > scale > scale curve > curveXYZTexture > click on
+curve Z () > select le graph > select le 1er point à gauche (start), set it to 0 > max value == 8 > select le 2e point à droite (end), set it to 8
+ref image curveZ.png
+
+select GPUparticule3D node > inspector > geometry > material override > new shader material > click on > shader
+ new shader > visual shader > select folder > create

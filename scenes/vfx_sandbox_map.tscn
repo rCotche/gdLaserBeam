@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bo7jxcpd826yx"]
+
+[ext_resource type="ArrayMesh" uid="uid://c7hv3n3tdl7fb" path="res://models/beam.tres" id="1_h47x7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gviym"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h47x7"]
+sky_material = SubResource("ProceduralSkyMaterial_gviym")
+
+[sub_resource type="Environment" id="Environment_tc2aw"]
+background_mode = 2
+sky = SubResource("Sky_h47x7")
+tonemap_mode = 2
+
+[sub_resource type="Curve" id="Curve_gviym"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_h47x7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_tc2aw"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 8), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_thps6"]
+curve_x = SubResource("Curve_gviym")
+curve_y = SubResource("Curve_h47x7")
+curve_z = SubResource("Curve_tc2aw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_516gn"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveXYZTexture_thps6")
+
+[node name="vfx_sandbox_map" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tc2aw")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Node3D"]
+amount = 1
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_516gn")
+draw_pass_1 = ExtResource("1_h47x7")

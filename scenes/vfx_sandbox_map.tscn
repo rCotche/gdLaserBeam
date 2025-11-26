@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bo7jxcpd826yx"]
+[gd_scene load_steps=12 format=3 uid="uid://bo7jxcpd826yx"]
 
 [ext_resource type="ArrayMesh" uid="uid://c7hv3n3tdl7fb" path="res://models/beam.tres" id="1_h47x7"]
+[ext_resource type="Shader" uid="uid://bx2iokb3tgrsw" path="res://shaders/s_dynamic_shader.tres" id="1_tc2aw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gviym"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -13,6 +14,10 @@ sky_material = SubResource("ProceduralSkyMaterial_gviym")
 background_mode = 2
 sky = SubResource("Sky_h47x7")
 tonemap_mode = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_thps6"]
+render_priority = 0
+shader = ExtResource("1_tc2aw")
 
 [sub_resource type="Curve" id="Curve_gviym"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -44,6 +49,7 @@ environment = SubResource("Environment_tc2aw")
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Node3D"]
+material_override = SubResource("ShaderMaterial_thps6")
 amount = 1
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_516gn")

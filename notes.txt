@@ -59,4 +59,6 @@ curve Z () > select le graph > select le 1er point à gauche (start), set it to 
 ref image curveZ.png
 
 select GPUparticule3D node > inspector > geometry > material override > new shader material > click on > shader
- new shader > visual shader > select folder > create
+ new shader > visual shader > select folder > create > click on
+mode > cull > disabled
+flags > unshaded, checked

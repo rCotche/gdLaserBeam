@@ -62,3 +62,54 @@ select GPUparticule3D node > inspector > geometry > material override > new shad
  new shader > visual shader > select folder > create > click on
 mode > cull > disabled
 flags > unshaded, checked
+
+COULEUR SHADER
+db click sur le fichier visual shader > en bas au niveau du terminal, onglet shader editor > select fragment ref image visual_shader_fragment.png
+
+click droit, pour ajouter un nouveau noeud > select (search input) color > connect node to albedo (output)
+
+select GPUparticule3D node > inspector > process material > click on > display > color curve > color
+
+NOISE TEXTURE
+db click sur le fichier visual shader > en bas au niveau du terminal, onglet shader editor > drag n drop texture image
+
+create new node vector4Decompose > texture2d node (color) link to vector4Decompose node (vec)
+
+create new node power (function) > vector4Decompose node (x) link to power node (a) > b == 1.5
+
+power node (op) link to output node (alpha)
+
+TEXTURE EN MOVEMENT
+create new node, UVPanning
+
+create new node, time (input)
+
+create new node, multiply (operator > vec2)
+
+time node (uv) link to multiply node (a) > multiply node (op) link to UVPanning node (offset) > UVPanning node (uv) link to texture2d node (uv)
+
+select multiply node > b: x=2;y=1 
+
+COLOR OPACITY
+create new node vector4Decompose
+
+create new node multiply (operator > float)
+
+input color node link to vector4Decompose node (vec) > vector4Decompose node (w) link to multiply node (a)
+
+power node (op) link to multiply node (b) > multiply node (op) link to output node (alpha)
+
+PARAMETER
+create new node floatparameter > "Texture_power" > defaul value enable, checked > default value = 1.5
+floatparameter node link to power node (b)
+
+create new node vector2parameter > "Speed" > defaul value enable, checked > default value = 1.5
+vector2parameter node (vector) link to multiply node (b)
+
+delete texture2D node
+create new texture2Doarameter node > "Energy_texture"
+
+create texture2D node > liste deroulante, texture change it to sample port (texture type)
+texture2Doarameter node (sample2D) link to texture2D node (sample2D)
+UVPanning node (uv) link to texture2d node (uv)
+texture2d node (color) link to vector4Decompose node (vec)

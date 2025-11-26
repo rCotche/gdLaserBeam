@@ -18,6 +18,8 @@ tonemap_mode = 2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_thps6"]
 render_priority = 0
 shader = ExtResource("1_tc2aw")
+shader_parameter/Speed = Vector2(2, 1)
+shader_parameter/Texture_parameter = 1.5
 
 [sub_resource type="Curve" id="Curve_gviym"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -40,6 +42,7 @@ curve_z = SubResource("Curve_tc2aw")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_516gn"]
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveXYZTexture_thps6")
+color = Color(0.9867646, 0.350203, 0.18331891, 1)
 
 [node name="vfx_sandbox_map" type="Node"]
 

@@ -1,12 +1,10 @@
-[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://bx2iokb3tgrsw"]
-
-[ext_resource type="Texture2D" uid="uid://55ucrgg8ax8h" path="res://textures/T_VFX_Noise_4.PNG" id="1_3fytt"]
+[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://bx2iokb3tgrsw"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_fdvao"]
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_3fytt"]
-parameter_name = "Texture_parameter"
+parameter_name = "pow_parameter"
 default_value_enabled = true
 default_value = 1.5
 
@@ -15,11 +13,23 @@ parameter_name = "Speed"
 default_value_enabled = true
 default_value = Vector2(2, 1)
 
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_ii1rm"]
+parameter_name = "Energy_texture"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3fytt"]
+source = 5
+
+[sub_resource type="Gradient" id="Gradient_ii1rm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3fytt"]
+gradient = SubResource("Gradient_ii1rm")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_fdvao"]
+texture = SubResource("GradientTexture2D_3fytt")
+
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_p1xt0"]
 input_name = "color"
-
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_y3qqq"]
-texture = ExtResource("1_3fytt")
 
 [sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_80gbq"]
 default_input_values = [0, Quaternion(0, 0, 0, 0)]
@@ -49,8 +59,8 @@ code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform vec2 Speed = vec2(2.000000, 1.000000);
-uniform sampler2D tex_frg_3;
-uniform float Texture_parameter = 1.5;
+uniform sampler2D Energy_texture;
+uniform float pow_parameter = 1.5;
 
 
 
@@ -83,19 +93,20 @@ void fragment() {
 	vec2 n_out8p0 = n_out7p0 * n_in8p1 + UV;
 
 
-// Texture2D:3
-	vec4 n_out3p0 = texture(tex_frg_3, n_out8p0);
+	vec4 n_out14p0;
+// Texture2D:14
+	n_out14p0 = texture(Energy_texture, n_out8p0);
 
 
 // VectorDecompose:4
-	float n_out4p0 = n_out3p0.x;
-	float n_out4p1 = n_out3p0.y;
-	float n_out4p2 = n_out3p0.z;
-	float n_out4p3 = n_out3p0.w;
+	float n_out4p0 = n_out14p0.x;
+	float n_out4p1 = n_out14p0.y;
+	float n_out4p2 = n_out14p0.z;
+	float n_out4p3 = n_out14p0.w;
 
 
 // FloatParameter:11
-	float n_out11p0 = Texture_parameter;
+	float n_out11p0 = pow_parameter;
 
 
 // FloatOp:5
@@ -119,8 +130,6 @@ nodes/vertex/0/position = Vector2(660, 140)
 nodes/fragment/0/position = Vector2(580, 140)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_p1xt0")
 nodes/fragment/2/position = Vector2(-1100, -260)
-nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_y3qqq")
-nodes/fragment/3/position = Vector2(-1380, 520)
 nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_80gbq")
 nodes/fragment/4/position = Vector2(-880, 540)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_1dvco")
@@ -139,4 +148,10 @@ nodes/fragment/11/node = SubResource("VisualShaderNodeFloatParameter_3fytt")
 nodes/fragment/11/position = Vector2(-1100, 1300)
 nodes/fragment/12/node = SubResource("VisualShaderNodeVec2Parameter_fdvao")
 nodes/fragment/12/position = Vector2(-3240, 1320)
-nodes/fragment/connections = PackedInt32Array(3, 0, 4, 0, 4, 0, 5, 0, 8, 0, 3, 0, 7, 0, 8, 2, 6, 0, 7, 0, 2, 0, 9, 0, 9, 3, 10, 0, 5, 0, 10, 1, 2, 0, 0, 0, 10, 0, 0, 1, 11, 0, 5, 1, 12, 0, 7, 1)
+nodes/fragment/13/node = SubResource("VisualShaderNodeTexture2DParameter_ii1rm")
+nodes/fragment/13/position = Vector2(-2140, 1300)
+nodes/fragment/14/node = SubResource("VisualShaderNodeTexture_3fytt")
+nodes/fragment/14/position = Vector2(-1360, 540)
+nodes/fragment/15/node = SubResource("VisualShaderNodeTexture_fdvao")
+nodes/fragment/15/position = Vector2(-300, 1380)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 7, 0, 8, 2, 6, 0, 7, 0, 2, 0, 9, 0, 9, 3, 10, 0, 5, 0, 10, 1, 2, 0, 0, 0, 10, 0, 0, 1, 11, 0, 5, 1, 12, 0, 7, 1, 13, 0, 14, 2, 8, 0, 14, 0, 14, 0, 4, 0)

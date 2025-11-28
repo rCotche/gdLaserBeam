@@ -46,7 +46,7 @@ cylinder1: drag n drop model, dans le dossier models > click droit > new scene i
 
 cylinder2: drag n drop model, dans le dossier models > click droit > new scene inherited > select mesh > inspector > mesh > fleche à droite de la mesh, liste déroulante > rendre unique > save as, select folder
 
-select GPUparticule3D node > inspector > draw passes > pass > changer > select mesh, cylinder 1
+select GPUparticule3D node > inspector > draw passes > pass > charger > select mesh, cylinder 1
 
 select GPUparticule3D node > inspector > amount == 1
 
@@ -113,3 +113,45 @@ create texture2D node > liste deroulante, texture change it to sample port (text
 texture2Doarameter node (sample2D) link to texture2D node (sample2D)
 UVPanning node (uv) link to texture2d node (uv)
 texture2d node (color) link to vector4Decompose node (vec)
+
+scene > select GPUParticle3D node > inspector > material override > click on > shader parameters > drag n drop texture to "Energy texture" slot
+texture == nois 9 ; pow == 1.3 ; speed == 2;1
+
+select GPUParticle3D node > inspector > process material > click on > display > color curves > color > click on > raw tab, ref image raw_tab.png
+
+****
+
+add GPUparticule3D node > inspector > process material > new particle process material
+
+select GPUparticule3D node > inspector > draw passes > pass > charger > select mesh, cylinder 2
+
+select GPUparticule3D node > inspector > amount == 1
+
+select GPUparticule3D node > inspector > time > lifetime == 1.5
+
+select GPUparticule3D node > inspector > process material > click on > acceleration > gravity > y == 0
+
+select GPUparticule3D node > inspector > geometry > material override > new shader material > click on > shader > drag n drop "s_dynamic_shader.tres"
+shader parameter > texture == nois 4 ; pow == 1.5 ; speed == 1.5;2
+
+select GPUParticle3D node > inspector > process material > click on > display > color curves > color > click on > raw tab, ref image raw_tab.png
+
+BORDERLESS TEXTURE
+db click sur le fichier visual shader > en bas au niveau du terminal, onglet shader editor > select fragment
+
+create texture2D node > click on, slot empty ref image gradient_texture2d.png > click on gradient_texture2d > inspector > fill > to > x=0;y=1
+
+create vector4Decompose node
+
+create pow (float) node
+
+create floatparameter node > "gradient power" > default value, checked > default value == 1
+
+create node multiply (float)
+
+texture2d node (color) link to vector4Decompose node (vec)
+vector4Decompose node (x) link to pow node (a)
+floatparameter node link to pow node (b)
+pow node (op) link to multiply node (b)
+multiply node (op) link to multiply node (a)
+multiply node (op) [le node qui a permis de modifier color opacity] link to output node (alpha)

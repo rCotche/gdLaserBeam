@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bo7jxcpd826yx"]
+[gd_scene load_steps=22 format=3 uid="uid://bo7jxcpd826yx"]
 
 [ext_resource type="ArrayMesh" uid="uid://c7hv3n3tdl7fb" path="res://models/beam.tres" id="1_h47x7"]
 [ext_resource type="Shader" uid="uid://bx2iokb3tgrsw" path="res://shaders/s_dynamic_shader.tres" id="1_tc2aw"]
@@ -24,6 +24,7 @@ shader = ExtResource("1_tc2aw")
 shader_parameter/Speed = Vector2(2, 1)
 shader_parameter/Energy_texture = ExtResource("2_thps6")
 shader_parameter/pow_parameter = 1.3
+shader_parameter/Gradient_power = 1.0
 
 [sub_resource type="Curve" id="Curve_gviym"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -48,18 +49,49 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveXYZTexture_thps6")
 color = Color(1.2, 0.5, 2.5, 1)
 
+[sub_resource type="Curve" id="Curve_gxmj3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2p5v3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ea77v"]
+_limits = [0.0, 26.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 26), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_bcsr6"]
+curve_x = SubResource("Curve_gxmj3")
+curve_y = SubResource("Curve_2p5v3")
+curve_z = SubResource("Curve_ea77v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2p5v3"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_max = 0.29999998
+scale_curve = SubResource("CurveXYZTexture_bcsr6")
+color = Color(2, 1, 3, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_516gn"]
 render_priority = 0
 shader = ExtResource("1_tc2aw")
 shader_parameter/Speed = Vector2(1.5, 2)
 shader_parameter/Energy_texture = ExtResource("4_gxmj3")
 shader_parameter/pow_parameter = 1.5
+shader_parameter/Gradient_power = 3.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gxmj3"]
 gravity = Vector3(0, 0, 0)
 color = Color(1.5, 0.5, 2.5, 1)
 
 [node name="vfx_sandbox_map" type="Node"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.20784314, 0.20784314, 0.20784314, 1)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tc2aw")
@@ -73,7 +105,13 @@ lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_516gn")
 draw_pass_1 = ExtResource("1_h47x7")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Node3D"]
+[node name="LittleCylinder" type="GPUParticles3D" parent="Node3D"]
+amount = 1
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_2p5v3")
+draw_pass_1 = ExtResource("1_h47x7")
+
+[node name="SplashEnergy" type="GPUParticles3D" parent="Node3D"]
 material_override = SubResource("ShaderMaterial_516gn")
 amount = 1
 lifetime = 1.5

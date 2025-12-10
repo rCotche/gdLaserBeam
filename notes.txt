@@ -120,6 +120,7 @@ texture == nois 9 ; pow == 1.3 ; speed == 2;1
 select GPUParticle3D node > inspector > process material > click on > display > color curves > color > click on > raw tab, ref image raw_tab.png
 
 ****
+splash
 
 add GPUparticule3D node > inspector > process material > new particle process material
 
@@ -155,3 +156,18 @@ floatparameter node link to pow node (b)
 pow node (op) link to multiply node (b)
 multiply node (op) link to multiply node (a)
 multiply node (op) [le node qui a permis de modifier color opacity] link to output node (alpha)
+
+scene > select GPUparticule3D node > inspector > geometry > material override > click on > shader parameters > gradient power == 3.0
+
+****
+lil cylinder
+
+scene > duplicate node "main Energy cylinder" > inspector > process material > make unique (sinon ça va affecter "main Energy cylinder")
+
+select GPUParticle3D node > inspector > process material > click on > display > color curves > color > click on > raw tab, ref image raw_tab_lc.png
+
+select GPUparticule3D node > inspector > process material > click on > display > scale > max == 0.3
+
+select GPUparticule3D node > inspector > process material > click on > display > scale > scale curve > CurveXYZTexture > click on > Curve Z > max value == 26.0
+
+scene > select GPUparticule3D node > inspector > geometry > material override > reset > create new material > shader material

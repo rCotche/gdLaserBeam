@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db7uggdnflo5h"
-path.s3tc="res://.godot/imported/T_VFX_Flare_15.PNG-765f8f3b7e5f06c22e9468b3e3d15f31.s3tc.ctex"
+uid="uid://b1wtwql5fim6v"
+path="res://.godot/imported/btn_animation.png-760c5272d0b5bf92b5f5af4d9175ab36.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/T_VFX_Flare_15.PNG"
-dest_files=["res://.godot/imported/T_VFX_Flare_15.PNG-765f8f3b7e5f06c22e9468b3e3d15f31.s3tc.ctex"]
+source_file="res://imgNotes/btn_animation.png"
+dest_files=["res://.godot/imported/btn_animation.png-760c5272d0b5bf92b5f5af4d9175ab36.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -38,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

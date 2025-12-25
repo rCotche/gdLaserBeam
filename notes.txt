@@ -180,3 +180,79 @@ select GPUparticule3D node > inspector > process material > click on > display >
 
 ****
 small particles
+
+add GPUparticule3D node > inspector > process material > new particle process material
+
+select GPUparticule3D node > inspector > draw passes > pass > new quadmesh > click on > size x=0.1;y=0.1
+
+scene > select GPUparticule3D node > inspector > geometry > material override > reset > create new material > shader material > click on > shader > new shader > click on
+flags > unshaded
+
+FOLLOW CAMERA
+db click sur le fichier visual shader > en bas au niveau du terminal, onglet shader editor > select vertex ref image visual_shader_fragment.png
+
+add node getBillbordMatrix
+getBillbordMatrix node (model_view_matrix) link to outpud node (model view matrix)
+billbord type > particles
+keep scale > enabled
+
+PARTICLE
+db click sur le fichier visual shader > en bas au niveau du terminal, onglet shader editor > select fragment ref image visual_shader_fragment.png
+
+drag n drop T_VFX_Flare_15 png, create node Texture2d
+
+add node vector4decompose
+
+Texture2d node (color) link to vector4decompose node (vec)
+
+add node input > liste deroulante > color
+
+add node vector4decompose
+
+add node float Operator multiply
+
+input node (x) link to vector4decompose node (vec)
+vector4decompose[input] node (w) link to multiply node (a)
+vector4decompose[texture2d] node (x) link to multiply node (b)
+multiply node (op) link to output node (alpha)
+input node (x) link to output node (albedo)
+ref image particle_shader.png
+
+select GPUparticule3D node > inspector > process material > click on > display > color curves > color >
+
+select GPUparticule3D node > inspector > process material > click on > display > scale > min=2;max=3.5
+
+select GPUparticule3D node > inspector > process material > click on > display > color curves > alpha curve > curve texture > click on > curve > new curve ref image alpha_curve.png
+
+select GPUparticule3D node > inspector > process material > click on > acceleration > gravity > y == 0
+
+select GPUparticule3D node > inspector > process material > click on > spawn > Velocity > direction x=0;y=0;z=1
+
+select GPUparticule3D node > inspector > process material > click on > spawn > Velocity > spread = 0
+
+select GPUparticule3D node > inspector > process material > click on > spawn > Velocity > initial Velocity min= 5; max= 8
+
+select GPUparticule3D node > inspector > process material > click on > spawn > Position > emission shape > sphere
+
+select GPUparticule3D node > inspector > amount == 50
+
+select GPUparticule3D node > inspector > process material > click on > animated Velocity > min=0;max=2;
+
+****
+all mesh
+
+select GPUparticule3D node > inspector > Time > lifetime =1.5
+
+select GPUparticule3D node > inspector > Time > one shot > enabled
+
+select GPUparticule3D node > inspector > Time > explosiveness = 1 (sauf pour le node particle: explosiveness = 0.2)
+
+****
+animation player
+
+add node animation player > en bas au niveau du terminal, onglet animation > click on btn animation, ref image btn_animation.png > new animation
+
+Animation tab(doit etre ouvert/activ) select main Energy cylinder > inspector > emitting > enabled > click key
+Animation tab(doit etre ouvert/activ) select lil cylinder > inspector > emitting > enabled > click key
+Animation tab(doit etre ouvert/activ) select splash Energy cylinder > inspector > emitting > enabled > click key
+Animation tab(doit etre ouvert/activ) select particle > inspector > emitting > enabled > click key

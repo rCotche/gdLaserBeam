@@ -170,4 +170,13 @@ select GPUparticule3D node > inspector > process material > click on > display >
 
 select GPUparticule3D node > inspector > process material > click on > display > scale > scale curve > CurveXYZTexture > click on > Curve Z > max value == 26.0
 
-scene > select GPUparticule3D node > inspector > geometry > material override > reset > create new material > shader material
+scene > select GPUparticule3D node > inspector > geometry > material override > reset > create new material > shader material > click on > shader > drag n drop dynamic_shader.tres
+shader parameters > Energy textures > drag n drop noise1_tiled
+speed parameter: x=2;y=-1
+pow parameter: 2
+
+18:00 vitesse du lil cylinder ???
+select GPUparticule3D node > inspector > process material > click on > display > scale > scale curve > CurveXYZTexture > make unique
+
+****
+small particles
